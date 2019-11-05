@@ -1,20 +1,14 @@
-const cors = require('cors');
-const {CLIENT_ORIGIN} = require('./config');
-
+const express = require('express');
 const app = express();
+const cors = require('cors')
 
-app.use(
-    cors({
-        origin: CLIENT_ORIGIN
-    })
-);
+app.use(cors())
 
- const PORT = process.env.PORT || 3000;
 
- app.get('/api/*', (req, res) => {
-   res.json({ok: true});
- });
+app.get('/products/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
 
- app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
-
- module.exports = {app};
+app.listen(8000, function () {
+  console.log('CORS-enabled web server listening on port 8000')
+})
